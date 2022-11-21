@@ -116,3 +116,20 @@ app.get("/detail-event", function (req,res) {
     })
 });
 
+//detail customer
+
+app.get("/detail-customer", function (req,res) {
+    const id = req.query.id;
+    const sql = `select * from Nhom5_Customers where ID =  ${id} `;
+    conn.query(sql,function (err,data) {
+        if(err) {
+            res.send("404 not found");
+        } else if (data.length > 0 ) {
+            res.send(data[0]);
+        }
+        else {
+            res.status(404).send("404 not found");
+        }
+
+    })
+});
