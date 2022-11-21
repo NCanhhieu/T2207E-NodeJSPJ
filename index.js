@@ -70,7 +70,7 @@ app.get("/get-services", function (req,res) {
     })
 });
 
-// lay event theo ten
+// lay event theo ten khach hang
 app.get("/event-by-customers", function (req,res) {
     const name = req.query.name;
     const sql = `select * from Nhom5_Events where cid in ( select cid from Nhom5_Customers where name like '%${name}%' ) `;
@@ -83,3 +83,36 @@ app.get("/event-by-customers", function (req,res) {
 
     })
 });
+
+// lay event
+
+app.get("/get-Events", function (req,res) {
+    const sql = "select * from Nhom5_Events";
+    conn.query(sql,function (err,data) {
+        if(err) {
+            res.send("404 not found");
+        } else {
+            res.send(data);
+        }
+
+    })
+});
+
+// detail event
+
+app.get("/detail-event", function (req,res) {
+    const sid = req.query.sid;
+    const sql = `select * from Nhom5_Events where ID =  ${sid} `;
+    conn.query(sql,function (err,data) {
+        if(err) {
+            res.send("404 not found");
+        } else if (data.length > 0 ) {
+            res.send(data[0]);
+        }
+        else {
+            res.status(404).send("404 not found");
+        }
+
+    })
+});
+
