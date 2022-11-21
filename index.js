@@ -101,8 +101,8 @@ app.get("/get-Events", function (req,res) {
 // detail event
 
 app.get("/detail-event", function (req,res) {
-    const sid = req.query.sid;
-    const sql = `select * from Nhom5_Events where ID =  ${sid} `;
+    const id = req.query.id;
+    const sql = `select * from Nhom5_Events where ID =  ${id} `;
     conn.query(sql,function (err,data) {
         if(err) {
             res.send("404 not found");
