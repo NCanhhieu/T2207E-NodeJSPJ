@@ -133,3 +133,103 @@ app.get("/detail-customer", function (req,res) {
 
     })
 });
+
+//lay review
+
+app.get("/reviews", function (req,res) {
+    const sql = "select * from Nhom5_Reviews";
+    conn.query(sql,function (err,data) {
+        if(err) {
+            res.send("404 not found");
+        } else {
+            res.send(data);
+        }
+
+    })
+});
+
+//detail review
+
+app.get("/detail-reviews", function (req,res) {
+    const id = req.query.id;
+    const sql = `select * from Nhom5_Reviews where ID =  ${id} `;
+    conn.query(sql,function (err,data) {
+        if(err) {
+            res.send("404 not found");
+        } else if (data.length > 0 ) {
+            res.send(data[0]);
+        }
+        else {
+            res.status(404).send("404 not found");
+        }
+
+    })
+});
+
+
+//them, sua, xoa review
+  //them
+app.post("/postreview", function (req, res) {
+
+    const email = req.query.Email;
+    const rating = req.query.Rating;
+    const cmt = req.query.Comment;
+    const eventID = req.query.EventID;
+
+    const sql = ` insert into Nhom5_Reviews(Email,Rating,Comment,EventID)
+ values (' ${email} ', ${rating} ,'${cmt} ', ${eventID}) `;
+    conn.query(sql,function (err,data) {
+        if(err) {
+            res.send("404 not found");
+        } else if (data.length > 0 ) {
+            res.send(data[0]);
+        }
+        else {
+            res.status(404).send("404 not found");
+        }
+
+    })
+});
+
+  //sua
+
+app.put("/updatereview", function (req, res) {
+    const id = req.query.id;
+    const email = req.query.Email;
+    const rating = req.query.Rating;
+    const cmt = req.query.Comment;
+    const eventID = req.query.EventID;
+
+    const sql = ` update  Nhom5_Reviews set Email = '${email}',Rating = ${rating}, Comment = '${cmt}', EventID = ${eventID}) where ID =  ${id} `;
+    conn.query(sql,function (err,data) {
+        if(err) {
+            res.send("404 not found");
+        } else if (data.length > 0 ) {
+            res.send(data[0]);
+        }
+        else {
+            res.status(404).send("404 not found");
+        }
+
+    })
+});
+
+//xoa
+
+app.delete("/delreview", function (req, res) {
+
+    const id = req.query.id;
+
+    const sql = ` delete from  Nhom5_Reviews  where ID =  ${id}`;
+    conn.query(sql,function (err,data) {
+        if(err) {
+            res.send("404 not found");
+        } else if (data.length > 0 ) {
+            res.send(data[0]);
+        }
+        else {
+            res.status(404).send("404 not found");
+        }
+
+    })
+});
