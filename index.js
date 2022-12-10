@@ -2,7 +2,7 @@
 const express = require("express");
 const app = express();
 //cap cong
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3200;
 
 //mo cua
 
@@ -41,6 +41,21 @@ app.get("/get-events", function (req,res) {
 
     })
 });
+
+//lay event theo id
+app.get("/get-events", function (req,res) {
+    const id = req.query.id;
+    const sql = `select * from Nhom5_Events where EventID = ${id}`;
+    conn.query(sql,function (err,data) {
+        if(err) {
+            res.send("404 not found");
+        } else {
+            res.send(data);
+        }
+
+    })
+});
+
 //lay event theo id eventype
 
 app.get("/get-events-by-type", function (req,res) {
