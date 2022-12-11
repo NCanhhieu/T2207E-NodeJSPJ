@@ -262,7 +262,7 @@ app.get("/detail-reviews", function (req,res) {
 // get local tu event
 app.get("/local-from-event", function (req,res) {
     const id = req.query.id;
-    const sql = `select * from Nhom5_Localtions where ID in (select LocationID from Nhom5_Events where ID =  ${id} )`;
+    const sql = `select * from Nhom5_Localtions where ID in (select LocationID from Nhom5_Events where EventID =  ${id} )`;
     conn.query(sql,function (err,data) {
         if(err) {
             res.send("404 not found");
