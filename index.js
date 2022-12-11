@@ -144,7 +144,7 @@ app.get("/eventype-by-id", function (req,res) {
 app.get("/local-from-eventype-by-id", function (req,res) {
     const id = req.query.id;
     const sql = `select C.ID as LocalID, C.NameLocal, C.Address, C.Time_Open, C.Time_Close, C.Price as LocalPrice, C.Day_close, 
- C.TotalSeatQty, C.Tel from Nhom5_Localtions C where ID in (select EvTypeID from Nhom5_LocationEvTys where  EvTypeID = ${id} );`;
+ C.TotalSeatQty, C.Tel from Nhom5_Localtions C where ID in (select LocationID from Nhom5_LocationEvTys where  EvTypeID = ${id} );`;
     conn.query(sql,function (err,data) {
         if(err) {
             res.send("404 not found");
