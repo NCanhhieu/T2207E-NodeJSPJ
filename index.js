@@ -202,7 +202,7 @@ app.get("/detail-customer", function (req,res) {
 
 app.get("/reviews-from-event", function (req,res) {
     const id = req.query.id;
-    const sql = `select * from Nhom5_Reviews where EventID in (select EventID from Nhom5_Events where ID =  ${id} )`;
+    const sql = `select * from Nhom5_Reviews where EventID in (select EventID from Nhom5_Events where EventID =  ${id} )`;
     conn.query(sql,function (err,data) {
         if(err) {
             res.send("404 not found");
@@ -287,7 +287,7 @@ app.get("/alldatabig", function (req,res) {
  left join Nhom5_Localtions C on B.LocationID = C.ID
  left join Nhom5_EvServis D on A.ID = D.EventTypeID 
  left join Nhom5_Services E on D.ServiceID = E.ID
- left join Nhom5_Events F on F.EventTypeID = A.ID
+ left join Nhom5_Events F on F.EventTypeID = A.EventID
  left join Nhom5_Customers G on F.CustomerID = G.ID
  left join Nhom5_Reviews H on H.EventID = F.ID
  left join Nhom5_Gallerys I on A.ID = I.EventTypeID`;
